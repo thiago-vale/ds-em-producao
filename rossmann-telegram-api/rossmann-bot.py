@@ -61,7 +61,8 @@ def predict( data ):
 def parse_message(message):
     chat_id = message['message']['chat']['id']
     store_id = message['message']['text']
-
+    print(chat_id)
+    print(store_id)
     store_id = store_id.replace('/', '')  # Remove a barra do início, se houver
     
     try:
