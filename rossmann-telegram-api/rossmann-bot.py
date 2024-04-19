@@ -8,7 +8,7 @@ TOKEN = '7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg'
 
 # https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/getMe
 # https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/getUpdate
-# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/setWebhook?url=https://1e90f0a1e615dd.lhr.life
+# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/setWebhook?url=https://536f2f48370cf7.lhr.life
 # https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/sendMessage?chat_id=1214372537&text=Hi Thiago, i am doing good, tks
 
 # 1214372537
@@ -58,19 +58,17 @@ def predict( data ):
 
     return d1
 
-
-def parse_message( message ):
+def parse_message(message):
     chat_id = message['message']['chat']['id']
     store_id = message['message']['text']
 
-    store_id = store_id.replace( '/', '' )
+    store_id = store_id.replace('/', '')  # Remove a barra do início, se houver
     
     try:
-        store_id = int(store_id)
+        store_id = int(store_id)  # Tenta converter o texto em um número inteiro
 
     except ValueError:
-        send_message( chat_id, 'Store ID is Wrong')
-
+        send_message(chat_id, 'Store ID is Wrong')  # Se não puder ser convertido, envia uma mensagem de erro
 
     return chat_id, store_id
 
@@ -82,7 +80,7 @@ def index():
         message = request.json
 
         chat_id, store_id = parse_message( message )
-
+        print(chat_id)
         if store_id != 'error':
             data = load_data_set(store_id)
             if store_id != 'error':
