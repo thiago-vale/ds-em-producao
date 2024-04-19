@@ -7,8 +7,8 @@ TOKEN = '7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg'
 
 
 # https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/getMe
-# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/getUpdate
-# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/setWebhook?url=https://536f2f48370cf7.lhr.life
+# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/getUpdates
+# https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/setWebhook?url=https://40abacb6a073f5.lhr.life
 # https://api.telegram.org/bot7155918199:AAHqgB9FT1iOYk-4eibjS52GYdsP2vYy6cg/sendMessage?chat_id=1214372537&text=Hi Thiago, i am doing good, tks
 
 # 1214372537
@@ -78,8 +78,12 @@ app = Flask( __name__ )
 @app.route( '/', methods=['GET', 'POST'] )
 def index():
     if request.method == 'POST':
-        message = request.json
 
+        update = request.json
+        updates = update['result']
+        latest_update = updates[-1]  # Pega a última atualização
+
+        message = latest_update['message']
         chat_id, store_id = parse_message( message )
         print(chat_id)
         if store_id != 'error':
